@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas</title>
+    <!-- Importa Tailwind via CDN -->
+     <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+    <h1 class="text-3xl font-bold mb-6">Gerenciador de Tarefas</h1>
+
+    <!-- Formulário para adicionar tarefa -->
+    <form action="/add" method="POST" class="mb-6 w-full max-w-md">
+        <input type="text" name="task" placeholder="Digite sua tarefa aqui..." required class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="submit" class="mt-3 w-full bg-blue-600 text-white rounded hover:bg-blue-700 trasition flex justify-center items-center h-12">
+            Adicionar
+        </button>
+    </form>
+
+    <!-- Lista estática de tarefas -->
+    <ul class="w-full max-w-md list-disc pl-5">
+        {% for task in tasks %}
+        <li class="mb-2 flex justify-between items-center">
+            {{ task }}
+            <a href="{{ url_for('delete_task', task_index=loop.index0) }}" class="text-red-600 hover:text-red-800 ml-4">Excluir</a>
+        </li>
+        {% else %}
+        <li class="mb-2 text-gray-500 italic">Nenhuma tarefa adicionada.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
